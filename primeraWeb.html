@@ -7,25 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $("button").click(function(){
-            $("#user").text( $("#username").val());
-            $("#tabla tbody tr").remove():
-            $.get("https://api.github.com/users/"+ $("#username").val() + "/repos", function(data){
-                $.each(data, function(index,element){
-                    var id = element.id;
-                    var name = element.name;
-                    var description = element.description;
-                    var number_followers = element.stargazers_count;
-                    var insertion = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + description + "</td><td>" + number_followers + "</td></tr>";
-                    $("#tabla_repositorios tbody").append(insertion);
-                });
-            }, "json" );
-            $("#username").val('');
-        });
-    });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
     <div class="jumbotron text-center">
@@ -40,10 +22,10 @@
         <div class="form-group">
             <label for="user">Introduce nombre de usuario de GitHub:</label>
             <div class="col-sm-10">
-                <input type="user" class="form-control" id="user" placeholder="Search user">
+                <input type="text" id="user" class="form-control" id="username" placeholder="Search user">
             </div>
             <div class="col-sm-2">
-                <button class="btn btn-primary btn-med">Buscar</button>
+                <button id="search" class="btn btn-primary btn-med">Buscar</button>
             </div>
         </div>
     </div>
@@ -59,8 +41,29 @@
                 <th>Description</th>
             </tr>
             </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
-
+    <script>
+    $(document).ready(function(){
+        $("#search").click(function(){
+            $("#user").text( $("#username").val());
+            $('#tabla tbody tr').remove():
+            $.get("https://api.github.com/users/"+ $("#username").val() + "/repos", function(data){
+                $.each(data, function(index,element){
+                    var id = element.id;
+                    var name = element.name;
+                    var description = element.description;
+                    var number_followers = element.stargazers_count;
+                    var insertion = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + description + "</td><td>" + number_followers + "</td></tr>";
+                    $("#tabla tbody").append(insertion);
+                });
+            }, "json" );
+            $("#user").val();
+        });
+    });
+    </script>
 </body>
 </html>
