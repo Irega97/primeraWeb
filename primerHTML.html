@@ -1,32 +1,66 @@
 <!DOCTYPE html>
-<html>
+
 <head>
-    <meta charset="UTF-8">
     <title>Mi primera pagina web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("button").click(function(){
+            $("#user").text( $("#username").val());
+            $("#tabla tbody tr").remove():
+            $.get("https://api.github.com/users/"+ $("#username").val() + "/repos", function(data){
+                $.each(data, function(index,element){
+                    var id = element.id;
+                    var name = element.name;
+                    var description = element.description;
+                    var number_followers = element.stargazers_count;
+                    var insertion = "<tr><td>" + id + "</td><td>" + name + "</td><td>" + description + "</td><td>" + number_followers + "</td></tr>";
+                    $("#tabla_repositorios tbody").append(insertion);
+                });
+            }, "json" );
+            $("#username").val('');
+        });
+    });
+    </script>
 </head>
-<img>
+<body>
+    <div class="jumbotron text-center">
+        <div class="page-header">
+            <h1 style="color:red;"><b>MI PRIMERA PAGINA WEB</b></h1>
+        </div>
+    </div>
 
-    <h1>MI PRIMERA PAGINA WEB</h1>
-    <h2>Creada por Iván Requena</h2>
-    <h6>Tutorial de w3schools</h6>
+    <div class="container">
+        <h2><b>Búsqueda repositorios GitHub</b></h2>
+        <br>
+        <div class="form-group">
+            <label for="user">Introduce nombre de usuario de GitHub:</label>
+            <div class="col-sm-10">
+                <input type="user" class="form-control" id="user" placeholder="Search user">
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-primary btn-med">Buscar</button>
+            </div>
+        </div>
+    </div>
     <br>
-    <p>Esta es la prueba del tutorial de HTML</p>
-    <a href="https://www.w3schools.com/html/html_basic.asp">Link</a>
-    <br>
-    <a href="https://w3schools.com/html/html_basic.asp"><img src="cristian.jpg" alt="es feisimo" width="104" height="142"></a>
-<ul>
-    <li>Coffee</li>
-    <li>Tea</li>
-    <li>Milk</li>
-</ul>
-
-<ol>
-    <li>Coffee</li>
-    <li>Tea</li>
-    <li>Milk</li>
-</ol>
-
-<pre>Mira que guapo esto, texto preformateado</pre>
+    <div class="container">
+        <h2>Repositorios</h2>
+        <table class="table table-hover" id = "tabla">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Followers</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
 
 </body>
 </html>
