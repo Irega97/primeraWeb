@@ -37,7 +37,7 @@
     <br>
     <div class="container">
         <h2>Repositorios</h2>
-        <table class="table table-hover" id = "tabla">
+        <table class="table table-hover" id = "tabla" style="color:white">
             <thead>
             <tr>
                 <th> <!--bgcolor="black"--> ID</th>
@@ -48,10 +48,15 @@
             </tbody>
         </table>
     </div>
+
+    <footer class="container-fluid text-center">
+        <p style="color:white"><b>By: Iván Requena Garcia</b></p>
+    </footer>
+
     <script>
     $(document).ready(function(){
         $("#search").click(function(){
-            $("#tabla tbody tr").remove():
+            $("#tabla tbody tr").remove();
             $.get("https://api.github.com/users/" + $("#usr").val() + "/repos", function(data){
                 $.each(data, function(index,element){
                     var id = element.id;
